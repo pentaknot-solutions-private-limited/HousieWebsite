@@ -1,0 +1,80 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+@import "~ng2-toasty/style-material.css";
+@import "~ng2-toasty/style-default.css";
+@import "~ng2-toasty/style-bootstrap.css";
+
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+  .container-login100 {
+    min-height: 100vw !important;
+    width: 100vh !important;
+  }
+  .wrap-login100 {
+    padding: 3% !important;
+    width: auto !important;
+    max-height: 237px !important;
+    margin-top: 10% !important;
+    overflow: auto !important;
+  }
+  .cdk-global-scrollblock {
+    width: 100vh !important;
+    top: 100% !important;
+  }
+  .fullHousieDialog {
+    margin-left: 50px !important;
+  }
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    height: 100vw;
+    overflow: hidden;
+    position: fixed;
+    top: 100%;
+    left: 0;
+  }
+}
+
+
+/* @media only screen and (orientation:portrait){
+
+  .container-login100 {
+    min-height: 100vw !important;
+  }
+  body {
+
+    height: 100vw;
+
+    -webkit-transform: rotate(-90deg);
+
+    -moz-transform: rotate(-90deg);
+
+    -o-transform: rotate(-90deg);
+
+    -ms-transform: rotate(-90deg);
+
+    transform: rotate(-90deg);
+
+  }
+
+}
+
+@media only screen and (orientation:landscape){
+
+  body {
+
+     -webkit-transform: rotate(0deg);
+
+     -moz-transform: rotate(0deg);
+
+     -o-transform: rotate(0deg);
+
+     -ms-transform: rotate(0deg);
+
+     transform: rotate(0deg);
+
+  }
+
+} */

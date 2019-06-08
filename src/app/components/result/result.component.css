@@ -1,0 +1,65 @@
+button {
+    font-size: 28px !important;
+}
+
+h2, h4 {
+    color: white;
+}
+
+h4 {
+    line-height: 1.4em;
+}
+.wrap-login100 {
+    padding: 2% !important;
+    /* width: 30%; */
+}
+
+.player-name {
+    font-size: 22px;
+}
+
+.claim-title {
+    font-family: 16px;
+}
+
+.first-box {
+    border: 3px solid yellow;
+    background: linear-gradient(-135deg, #c850c0, #4158d0);;
+}
+
+.result-table {
+    background-color: white;
+    width: 150% !important;
+    border-radius: 10%;
+}
+
+.gradient-blue-bg {
+    background: linear-gradient(to bottom right, #66ffff 0%, #000099 100%);
+}
+
+.col-md-4 img {
+    margin-left: 5%;
+}
+
+/* Table css */
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  /* border: 1px solid #dddddd; */
+  text-align: left;
+  padding: 8px;
+}
+
+
+th {
+    /* background-color: coral; */
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}

@@ -1,0 +1,194 @@
+<div class="limiter">
+  <div class="heading">
+    <nav class="row sticky-top">
+      <div class="col-sm-3 col-3" [routerLink]="['/tutorial']">
+        <img src="assets/icons/question-mark-32.png" width="30px" height="30px">
+        &nbsp;Learn</div>
+      <div class="col-sm-3 col-3" [routerLink]="['/about']">
+        <img src="assets/icons/info-2-32.png" width="30px" height="30px">
+        &nbsp; About Us</div>
+      <div class="col-sm-3 col-3" [routerLink]="['/youtube']">
+        <img src="assets/icons/youtube-4-32.png" width="30px" height="30px">
+        &nbsp;Videos</div>
+      <div class="col-sm-3 col-3" [routerLink]="['/match-list']">
+        <img src="assets/icons/arrow-58-32.png" width="30px" height="30px">
+        &nbsp;Matches</div>
+    </nav>
+  </div>
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <form #registrationForm="ngForm"
+        (ngSubmit)="registerPlayer(registrationForm)" class="login100-form
+        validate-form" *ngIf="signUp">
+        <span class="login100-form-title">
+          Register
+        </span>
+
+        <div class="wrap-input100 validate-input" data-validate="Password is
+          required">
+          <input class="input100" [(ngModel)]="Player.name" type="text" required
+            name="username" placeholder="Full Name">
+          <span class="focus-input100"></span>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Valid email is
+          required: ex@abc.xyz">
+          <input class="input100" [(ngModel)]="Player.email" type="text"
+            required name="email" placeholder="Email Address">
+          <span class="focus-input100"></span>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Password is
+          required">
+          <input class="input100" [(ngModel)]="Player.mobileNumber" type="text"
+            required name="mobile" placeholder="Mobile Number">
+          <span class="focus-input100"></span>
+        </div>
+
+
+        <div class="wrap-input100 validate-input" data-validate="Password is
+          required">
+          <input class="input100" [(ngModel)]="Player.passwordHash" required
+            type="password" name="pass" placeholder="Password">
+          <span class="focus-input100"></span>
+        </div>
+        <div id="privacy" class="wrap-input100 validate-input"
+          data-validate="Agree to privacy policy">
+          <input [(ngModel)]="policyChecked" type="checkbox" name="privacy">
+          <!-- [popover]="myPopover" -->
+          I accept the <a id="tool" (click)="openDialog()">Terms of Service</a>
+          <span class="focus-input100"></span>
+          <div id="oppo">
+
+          </div>
+        </div>
+
+        <!-- <label style="color: red; margin-left: 20%" *ngIf="userExist">Email already exist</label> -->
+        <div class="container-login100-form-btn">
+          <!-- registrationForm.form.invalid && -->
+          <button class="login100-form-btn" (click)="clicked()"
+            [disabled]="!registrationForm.form.valid" type="submit">
+            Submit
+          </button>
+        </div>
+
+        <div class="text-center p-t-12">
+          <a class="txt2" (click)="setLogin()" style="cursor: pointer;">
+            Already a member? Sign in
+            <!-- <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i> -->
+          </a>
+        </div>
+      </form>
+
+      <form #loginForm="ngForm" (ngSubmit)="onLoginSubmit()"
+        class="login100-form validate-form" style="width: 100%" *ngIf="!signUp">
+        <span class="login100-form-title" style="padding: 0px">
+          Member Login
+        </span>
+
+        <div class="row">
+          <!-- <div class="col-4">
+            <img src="../../../assets/Final.png" style="height: 100px; width: 100px;">
+          </div> -->
+          <div class="col-12">
+            <img src="../../../assets/Final.png" style="height: 50px; width: 50px; margin-left: 42%; margin-top: 20px; margin-bottom: 20px">
+            <div class="wrap-input100 validate-input" data-validate="Valid email
+              is
+              required: ex@abc.xyz">
+              <input class="input100" required [(ngModel)]="Player.email"
+                type="text" name="email" placeholder="Email Address">
+              <span class="focus-input100"></span>
+              <!-- <span class="symbol-input100">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+              </span> -->
+            </div>
+
+            <div class="wrap-input100 validate-input" data-validate="Password is
+              required">
+              <input class="input100" required [(ngModel)]="Player.passwordHash"
+                type="password" name="pass" placeholder="Password">
+              <span class="focus-input100"></span>
+              <!-- <span class="symbol-input100">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+              </span> -->
+            </div>
+            <!-- <label style="color: red; margin-left: 20%" *ngIf="userExist">Email already exist</label> -->
+            <div class="container-login100-form-btn">
+              <button class="login100-form-btn" type="submit"
+                [disabled]="loginForm.form.invalid">
+                Login
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center p-t-12" style="cursor: pointer;">
+          <a class="txt2" (click)="setSignUp()">
+            Create your Account
+          </a>
+        </div>
+      </form>
+    </div>
+    <!-- <popover-content #myPopover
+      title="Popover title"
+      placement="right"
+      [animation]="true"
+      [closeOnClickOutside]="true">
+      <p>
+        Privacy needs to be protected in this present electronic world
+        and we at http://www.gamingbirds.com respect that. You as well
+        as we understand that we need to divulge some information to the
+        world for availing services.
+        General Information
+        We request you to give us general information like email
+        address, mobile number, name of your city, state & country etc.
+        Other information like phone number, home or office address etc
+        is optional.
+        Important Information
+        Your Password
+        We protect your password and we state that we do not share your
+        password with anybody. It is also your own responsibility to
+        protect your password.
+        Cookies
+        We have cookies on our website which enable us to give you fast
+        service and customized service. However, you have the option to
+        deny the cookies feature but by doing this you will also not be
+        able to use some of the services.
+        It is also stated that we may have other cookies from other
+        websites on our website over which we don't have any control and
+        hence we are not liable for privacy trespass by such website. It
+        is they who should be liable for such trespass of privacy.
+        E-mail, SMS & Phone Calls from Us and Others
+        By registering on http://www.gamingbirds.com you give us the
+        consent to contact you through email, SMS (Short Message
+        Service) and through tele communication (mobile, landline or any
+        other medium) for all purposes. The purpose includes information
+        on products and offers, contest and prizes, marketing and
+        advertising communications and all other reasons. By registering
+        you are giving us the consent to do so.
+        Links to Third Party Sites
+        We may provide links and/or connections to third-party web sites
+        or services from our website . We are not responsible for the
+        privacy practices or content of these third-party sites.
+        A Note about Push Notifications
+        We may send push notifications if the user opts in to receive
+        them. Push notification process automatically provides us with a
+        token which is identified to a specific device, enabling
+        notifications to be sent to that device through push
+        notification service. The token is used only to send push
+        notifications. The token is not disclosed and is not used for
+        any other purpose or combined with any other information. We
+        send push notifications to communicate information about how to
+        interact.
+        Changes in Privacy Policy
+        We will regularly update our website and if any change is
+        required in Privacy policy then we will notify you of such
+        change by email or posting on the website.
+        Contact Us
+        If you have any questions or concerns regarding this Privacy
+        Policy, please send us an email gamingbirds100@gmail.com
+      </p>
+    </popover-content> -->
+  </div>
+  <ng2-toasty></ng2-toasty>
+</div>

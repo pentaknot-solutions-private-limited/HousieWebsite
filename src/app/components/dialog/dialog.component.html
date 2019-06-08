@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>Prize Selection </h1>
+<div mat-dialog-content class="dialogContent">
+    Select Prize From Below List:
+    <div *ngIf="matchPriceDetails != null">
+        <div class="row">
+            <!-- *ngIf="item.displayPosition != '4'" -->
+            <div class="col-4" *ngFor="let item of matchPriceDetails;">
+                <img *ngIf="item.displayPosition !== 4"
+                    src="{{priceImageUrl}}{{item.fileName}}"
+                    id="item.displayPosition" [ngClass]="
+                    {'highlight': selectedIndex === item.displayPosition && item.isActive,
+                    'grey': !item.isActive}"
+                    alt="{{item?.displayPosition}} Image" width="50px"
+                    height="50px" (click)="displayZoom(item)">
+            </div>
+        </div>
+        <div class="row" *ngIf="imgZoom != null ">
+            <div class="fullHousieDialog" style="margin-left: 90px;">
+                <img src="{{priceImageUrl}}{{imgZoom}}" width="150px"
+                    height="150px">
+            </div>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]="matchPlayerPointRel.claimedPrize == null" (click)="Submit()">Claim</button>
+</div>
+<ngx-spinner></ngx-spinner>

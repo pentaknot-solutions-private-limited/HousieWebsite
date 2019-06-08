@@ -1,0 +1,44 @@
+<div class="limiter">
+  <div class="container-login100">
+    <div class="preloader" *ngIf="!loading">
+      <div class="wrap-login100 row" *ngIf="isError">
+        <div class="col-md-12 mb-5 text-center">
+          <h3>{{checkPlayerError}}</h3>
+          <h6 ><a [routerLink]="['/match-list']">Go Back to Home Screen</a></h6>
+        </div>
+        <!-- *ngIf="isWon" -->
+      </div>
+      <div class="wrap-login100 row" *ngIf="!isError">
+        <!-- <ul>
+          <li class="clickabe-div" [routerLink]="['/claim-result']">
+  
+          </li>
+        </ul> -->
+        <div class="col-md-12 mb-5 text-center">
+          <h1>Claim your win!</h1>
+        </div>
+        <div class="col-xs-3" (click)="submitFirst()">
+          <button class="btn btn-danger claimBtn mb-1">First Line</button>
+        </div>
+        <div class="col-xs-3" (click)="submitSecond()">
+          <button class="btn btn-warning claimBtn mb-1" style="color: white;">Middle Line</button>
+        </div>
+        <div class="col-xs-3" (click)="submitThird()">
+          <button class="btn btn-primary claimBtn mb-1">Bottom Line</button>
+        </div>
+        <div class="col-xs-3" (click)="submitFull()">
+          <button class="btn btn-success claimBtn mb-1">Full Housie</button>
+        </div>
+
+        <!-- <div class="col-md-4 mb-5" *ngFor="let item of items; let i=index;">
+          <button class="btn btn-success d-flex" type="submit" *ngIf="i===0">First Line </button>
+          <button class="btn btn-success d-flex" type="submit" *ngIf="i===1">First Line </button>
+          <button class="btn btn-success d-flex" type="submit" *ngIf="i===2">First Line </button>
+        </div>
+        <button class="ml-auto mr-auto btn btn-primary btn-xl d-flex">Full Housie</button> -->
+      </div>
+      <ng2-toasty></ng2-toasty>
+      <ngx-spinner></ngx-spinner>
+    </div>
+  </div>
+</div>

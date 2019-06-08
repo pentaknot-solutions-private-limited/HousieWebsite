@@ -1,0 +1,48 @@
+<div class="limiter">
+  <div class="heading">
+    <nav class="row sticky-top">
+      <div class="col-sm-3 col-3" [routerLink]="['/about']">
+        <img src="assets/icons/info-2-32.png" width="30px" height="30px">
+        &nbsp;About Us</div>
+      <div class="col-sm-3 col-3" [routerLink]="['/youtube']">
+        <img src="assets/icons/youtube-4-32.png" width="30px" height="30px">
+        &nbsp;Videos</div>
+      <div class="col-sm-3 col-3" [routerLink]="['/match-list']">
+        <img src="assets/icons/arrow-58-32.png" width="30px" height="30px">
+        &nbsp;Matches</div>
+      <div class="col-sm-3 col-3" *ngIf="loggedOut" [routerLink]="['/login']">
+        <img src="assets/icons/arrow-32.png" width="30px" height="30px">
+        &nbsp;Login</div>
+      <div class="col-sm-3 col-3" *ngIf="!loggedOut" (click)="logout()">
+        <img src="assets/icons/logout.png" width="30px" height="30px">
+        &nbsp;Logout</div>
+    </nav>
+  </div>
+  <div class="container-login100">
+    <div class="wrap-login100 row">
+      <div class="head">
+        <h3>How to Play
+        </h3>
+      </div>
+      <br><br>
+      <div class="col-12 mb-30 rules">
+          <ul>
+            <li>Get your free ticket from <a href="http://www.thegamingbirds.com">thegamingbirds.com</a></li>
+            <li>Write down your ticket numbers on paper in the same format as sent to your Email</li>
+            <li>Join our YouTube live at <a href="https://www.youtube.com/channel/UCpGv-Kibvylx4hHGye8__nQ" target="_blank">Gaming Birds</a> on every Saturday 8:30 pm and Play Traditional Housie in a new way</li>
+            <li>If you win click on the prize claiming link in description of YouTube live.</li>
+            <li>Prize will be delivered directly to you.</li>
+            <li>Enjoy & Spread love with family & Friends ❣</li>
+          </ul>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;Or 
+          <br><br>
+          You can also watch our video to see how to play.
+          <br>
+          Also Don't forget to Subscribe our channel <a href="https://www.youtube.com/channel/UCpGv-Kibvylx4hHGye8__nQ" target="_blank">Gaming Birds</a> and hit the bell icon to  get notifications before every game.
+          <br>
+          <code>Note</code> - Wrong claim will lead to disqualification from the game
+      </div>
+    </div>
+  </div>
+</div>

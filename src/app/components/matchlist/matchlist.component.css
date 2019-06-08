@@ -1,0 +1,83 @@
+* {
+    overflow: -webkit-paged-x;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.play-now {
+    color: white;
+    padding-top: 2%;
+    text-align: center;
+    font-weight: lighter;
+}
+
+h1 {
+    color: white;
+}
+
+.col-sm-3 {
+    color: white;
+    cursor: pointer;
+}
+
+.clickabe-div {
+    cursor: pointer;
+}
+
+ul {
+    display: inherit;
+}
+
+.container-login100 {
+    padding-top: 6%;
+}
+
+.heading {
+    padding-top: 2%;
+    width: 100%;
+    text-align: center;
+    background: transparent;
+    position: absolute;
+}
+
+.footer {
+    padding-top: 2%;
+    width: 100%;
+    text-align: center;
+    background: transparent;
+    position: absolute;
+    bottom: 3%;
+}
+
+.clickabe-div {
+    margin-top: 10px;
+}
+
+.scrolling-wrapper {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.card {
+    display: inline-block;
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.scrolling-wrapper {
+    -webkit-overflow-scrolling: touch;
+}
+
+.logout img {
+    float: left;
+    margin-left: 35px;
+}
+
+.animeText {
+    display: inline;
+    color: cornsilk;
+}
+
+.match-icon {
+    width: 22vw !important;
+}

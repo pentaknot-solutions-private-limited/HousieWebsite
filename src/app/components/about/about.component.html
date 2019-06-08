@@ -1,0 +1,104 @@
+<div class="limiter">
+  <div class="heading">
+    <nav class="row sticky-top">
+      <div class="col-sm-3 col-3" [routerLink]="['/tutorial']">
+        <img src="assets/icons/question-mark-32.png" width="30px" height="30px">
+        &nbsp;Learn</div>
+      <div class="col-sm-3 col-3" [routerLink]="['/youtube']">
+        <img src="assets/icons/youtube-4-32.png" width="30px" height="30px">
+        &nbsp;Videos</div>
+      <div class="col-sm-3 col-3" [routerLink]="['/match-list']">
+        <img src="assets/icons/arrow-58-32.png" width="30px" height="30px">
+        &nbsp;Matches</div>
+      <div class="col-sm-3 col-3" *ngIf="loggedOut" [routerLink]="['/login']">
+        <img src="assets/icons/arrow-32.png" width="30px" height="30px">
+        &nbsp;Login</div>
+      <div class="col-sm-3 col-3" *ngIf="!loggedOut" (click)="logout()">
+        <img src="assets/icons/logout.png" width="30px" height="30px">
+        &nbsp;Logout</div>
+    </nav>
+  </div>
+  <div class="container-login100">
+    <div class="wrap-login100 row">
+      <div class="head">
+        <h3>About Us
+        </h3>
+      </div>
+      <br><br>
+      <div class="col-12 mb-30">
+        <p>Tambola - The fun game of probability by Gaming Birds
+          It is our endeavour at GamingBirds to bring to you popular games from
+          India that have been popular over generations. Tambola or Housie as it
+          is more commonly known is a very popular Indian party game of
+          probability. It is also called Bingo 90 or Tombola in other countries.
+          Tambola by GamingBirds is an online multiplayer game. We give you an
+          option of playing Tambola online where you get to play against players
+          from all over the world.
+          If it’s a game, winners and prizes are de rigueur, and in this version
+          of Tambola you have a chance to win not one but four different types
+          of
+          prizes!!
+        </p>
+      </div>
+      <div class="col-6 col-md-12 mx-auto">
+        <form #registrationForm="ngForm"
+          (ngSubmit)="Mail()" class="login100-form
+          validate-form">
+          <div class="head">
+            <h3 id="contact">Contact Us
+            </h3>
+          </div>
+          <br><br>
+
+          <div class="wrap-input100 validate-input" data-validate="First Name is
+            required">
+            <input class="input100" [(ngModel)]="Contact.firstName" type="text"
+              required
+              name="fn" placeholder="First Name">
+            <span class="focus-input100"></span>
+          </div>
+          <div class="wrap-input100 validate-input" data-validate="Last Name is
+            required">
+            <input class="input100" [(ngModel)]="Contact.lastName" type="text"
+              required
+              name="ln" placeholder="Last Name">
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="wrap-input100 validate-input" data-validate="Valid email
+            is
+            required: ex@abc.xyz">
+            <input class="input100" [(ngModel)]="Contact.email" type="text"
+              required name="email" placeholder="Email Address">
+            <span class="focus-input100"></span>
+          </div>
+          <div class="wrap-input100 validate-input" data-validate="Phone is
+            required">
+            <input class="input100" [(ngModel)]="Contact.phone" required
+              type="number" min="1" name="mobile" placeholder="Phone">
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="wrap-input100 validate-input">
+            <textarea class="input100" id="texta" [(ngModel)]="Contact.message"
+              required name="mess" placeholder="Message here!"></textarea>
+           <span class="focus-input100"></span>
+          </div>
+
+
+
+
+          <!-- <label style="color: red; margin-left: 20%" *ngIf="userExist">Email already exist</label> -->
+          <div class="container-login100-form-btn">
+            <!-- registrationForm.form.invalid && -->
+            <button class="login100-form-btn" 
+              [disabled]="!registrationForm.form.valid" type="button"
+              [routerLink]="['/match-list']">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

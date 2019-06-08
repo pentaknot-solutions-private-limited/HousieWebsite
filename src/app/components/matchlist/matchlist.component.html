@@ -1,0 +1,53 @@
+<div class="limiter">
+  <div class="heading">
+    <div class="row">
+      <div class="col-sm-3 col-3" [routerLink]="['/tutorial']">
+        <img src="assets/icons/question-mark-32.png" width="30px" height="30px">
+        &nbsp;Learn</div>
+      <div class="col-sm-6 col-6" style="color: cornsilk;
+        font-size: x-large;">
+        Upcoming Match(s)
+      </div>
+      <div class="col-sm-3 col-3" *ngIf="loggedOut" [routerLink]="['/login']">
+        <img src="assets/icons/arrow-32.png" width="30px" height="30px">
+        &nbsp;Login</div>
+      <div class="col-sm-3 col-3" *ngIf="!loggedOut" (click)="logout()">
+        <img src="assets/icons/logout.png" width="30px" height="30px">
+        &nbsp;Logout</div>
+    </div>
+  </div>
+  <div class="container-login100">
+    <div class="scrolling-wrapper">
+      <div class="card" *ngFor="let item of matchLists; let i= index"
+        [routerLink]="['/match-details', item.matchId]">
+        <img class="match-icon" src="assets/1.png" alt="" />
+        <h5 class="play-now">{{item.matchDateTime | date: 'mediumDate' }}</h5>
+        <h5 class="play-now">{{item.matchDateTime | date: 'shortTime' }}</h5>
+      </div>
+    </div>
+    <ul>
+      <!-- <li class="clickabe-div"
+        *ngFor="let item of matchLists; let i= index"
+        [routerLink]="['/match-details', item.matchId]">
+        <div class="matchIterate">
+          <img src="assets/1.png" alt="" />
+          <h5 class="play-now">{{item.matchDateTime | date: 'mediumDate' }}</h5>
+          <h5 class="play-now">{{item.matchDateTime | date: 'shortTime' }}</h5>
+        </div>
+      </li> -->
+    </ul>
+  </div>
+  <div class="footer">
+    <nav class="row">
+      <div class="col-sm-3 col-3" [routerLink]="['/about']">
+        <img src="assets/icons/info-2-32.png" width="30px" height="30px">
+        &nbsp; About Us</div>
+      <div class="col-sm-6 col-6"></div>
+      <div class="col-sm-3 col-3" [routerLink]="['/youtube']">
+        <img src="assets/icons/youtube-4-32.png" width="30px" height="30px">
+        &nbsp;Videos</div>
+    </nav>
+  </div>
+</div>
+
+<ngx-spinner></ngx-spinner>

@@ -1,0 +1,67 @@
+<div class="limiter">
+  <div class="heading">
+    <div class="row">
+      <div class="col-sm-3 col-3" style="color: cornsilk">
+
+      </div>
+      <div class="col-sm-6 col-6" style="color: cornsilk;
+        font-size: x-large;">
+        Update Information (Address)
+      </div>
+      <div class="col-sm-3 col-3">
+        <div class="logout" (click)="logout()">
+          <p class="animeText">Logout</p>
+          <img src="assets/icons/logout.png" width="30px" height="30px">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <div class="match-details" style="width: 100%" *ngIf="!loading && !linkExpired">
+        <div class="row">
+          <div class="col-3">
+            Your Name :
+          </div>
+          <div class="col-6">
+            {{ Player.name }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            Your Email Id :
+          </div>
+          <div class="col-6">
+            {{ Player.email }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            Your Address :
+          </div>
+          <div class="col-6">
+            <form #registrationForm="ngForm"
+              (ngSubmit)="updateAddress()" class="login100-form
+              validate-form">
+              <div class="wrap-input100 validate-input" data-validate="Password
+                is
+                required">
+                <textarea class="input100" [(ngModel)]="Player.address"
+                  name="address" required cols="30" rows="20"></textarea>
+                <span class="focus-input100"></span>
+              </div>
+              <button class="login100-form-btn"
+                [disabled]="!registrationForm.form.valid" type="submit">
+                Update
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="match-details" style="width: 100%; text-align: center;" *ngIf="linkExpired">
+          This Link is Expired
+      </div>
+    </div>
+  </div>
+  <ngx-spinner></ngx-spinner>
+  <ng2-toasty></ng2-toasty>

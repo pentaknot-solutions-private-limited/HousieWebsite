@@ -1,0 +1,74 @@
+<div class="limiter">
+    <div class="heading">
+        <div class="row">
+          <div class="col-sm-3 col-3" style="color: cornsilk">
+            <div class="" [routerLink]="['/match-list']">Back</div>
+          </div>
+          <div class="col-sm-6 col-6" style="color: cornsilk;
+          font-size: x-large;">
+            Match Details
+          </div>
+          <div class="col-sm-3 col-3">
+            <div class="logout" (click)="logout()">
+              <p class="animeText">Logout</p>
+              <img src="assets/icons/logout.png" width="30px" height="30px">
+            </div>
+          </div>
+        </div>
+      </div>
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <div class="match-details" style="width: 100%">
+        <div class="row">
+          <div class="col-sm-6 col-6 prize" *ngIf="matchPriceDetails != null">
+            <div class="area">
+                <!-- *ngIf="item.displayPosition != '4'" -->
+              <div class="column" *ngFor="let item of matchPriceDetails;">
+                <img src="{{priceImageUrl}}{{item?.fileName}}" id="item.displayPosition" [ngClass]="{'highlight': selectedIndex === item.displayPosition}"
+                  alt="{{item?.displayPosition}} Image" width="50px"
+                  height="50px" (click)="displayZoom(item)">
+              </div>
+            </div>
+            <div class="fullHousie">
+              <img src="{{priceImageUrl}}{{imgZoom}}" width="150px" height="150px">
+            </div>
+            <h5 class="caption">{{caption}}</h5>
+            <!-- <div class="fullHousie" *ngFor="let item of matchPriceDetails;">
+              <img src="{{priceImageUrl}}{{item.fileName}}"
+                *ngIf="item.displayPosition == '4'"
+                alt="{{item.displayPosition}} Image" width="150px" height="150px">
+            </div> -->
+            <!-- <td *ngFor="let item of matchPriceDetails;"><img
+                *ngIf="item.displayPosition != '4'"
+                class="img-thumbnail" width="50px" height="50px"
+                src="{{priceImageUrl}}{{item.fileName}}" alt=""> -->
+          </div>
+          <div class="col-sm-6 col-6">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-text">
+                  <strong>Date:</strong> {{MatchDetail.matchDateTime | date:
+                  'mediumDate' }}
+                  <br>
+                  <strong>Time :</strong> {{MatchDetail.matchDateTime | date:
+                  'shortTime' }}
+                  <br>
+                  <strong>Description:</strong> {{MatchDetail.description}}
+
+                </p>
+              </div>
+              <div class="card-footer">
+                <button class="btn btn-success enroll-btn" type="button"
+                  (click)="matchPLayerRel(MatchDetail.matchId)">
+                  Enroll
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-spinner></ngx-spinner>
+<ng2-toasty></ng2-toasty>
