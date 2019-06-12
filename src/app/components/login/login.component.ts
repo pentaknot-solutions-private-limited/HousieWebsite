@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, Route, ActivatedRoute } from '@angular/router';
 // import { AppService } from './Services/login.service';
 import { LoginModel, Player } from './Model/login.model';
 import { LoginService } from './Services/login.service';
 import {MatDialog} from '@angular/material';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { NgModel, NgForm } from '@angular/forms';
 
 import {
   ToastyService,
@@ -12,6 +14,7 @@ import {
   ToastData
 } from 'ng2-toasty';
 import { PolicyComponent } from '../policy/policy.component';
+import { debounceTime } from 'rxjs/operators';
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 @Component({
@@ -21,18 +24,24 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
   providers: [LoginService, ToastyService, ToastyConfig]
 })
 export class LoginComponent implements OnInit {
-
+  @ViewChild('registerEmail') registerEmailId: NgModel;
+  @ViewChild('registrationForm') registrationForm: NgForm;
   LoginModel: LoginModel = new LoginModel();
   Player: Player = new Player();
   webresponse: any;
-  signUp: boolean;
   policyChecked = false;
   public loading = false;
   public Isdisabled = false;
+  isReset = false;
+  isLogin = true;
+  isSignUp = false;
   returnUrl: any;
+  emailExists: boolean;
+  formChangesSubscription: any;
   constructor(
     private route: ActivatedRoute,
     private _router: Router,
+    private spinner: NgxSpinnerService,
     private _loginService: LoginService,
     public dialog: MatDialog,
     private toastyService: ToastyService,
@@ -41,12 +50,38 @@ export class LoginComponent implements OnInit {
     this.toastyConfig.position = 'top-center';
   }
 
+  checkEmail() {
+    if (this.registerEmailId.valid) {
+    this.spinner.show();
+    this._loginService.CheckEmail(this.Player.email).subscribe(
+      data => {
+        if (data) {
+          this.emailExists = true;
+        } else {
+          this.emailExists = false;
+        }
+        this.spinner.hide();
+      }
+    );
+    }
+  }
+
   setSignUp() {
-    this.signUp = true;
+    this.isLogin = false;
+    this.isSignUp = true;
+    this.isReset = false;
+  }
+
+  setReset() {
+    this.isLogin = false;
+    this.isReset = true;
+    this.isSignUp = false;
   }
 
   setLogin() {
-    this.signUp = false;
+    this.isSignUp = false;
+    this.isLogin = true;
+    this.isReset = false;
   }
 
   clicked() {
@@ -68,17 +103,19 @@ export class LoginComponent implements OnInit {
   }
 
   registerPlayer(registrationForm) {
+    this.emailExists = false;
+    this.spinner.show();
     this._loginService.AddPlayer(this.Player).subscribe(
       data => {
         this.webresponse = data.data;
         if (this.webresponse == null) {
           this.toastyService.error('Registration Failed');
-          this.loading = false;
+          this.spinner.hide();
           this.Isdisabled = false;
       } else {
           this.toastyService.success('Registered Successfully');
           this.setLogin();
-          this.loading = false;
+          this.spinner.hide();
           this.Player.email = '';
       }
       },
@@ -91,8 +128,23 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  onResetSubmit() {
+    this.spinner.show();
+    this.Isdisabled = true;
+    this._loginService.SendForgetPaswordLink(this.Player).subscribe(
+      data => {
+        this.spinner.hide();
+        if (data.message === 'no-player') {
+          this.toastyService.error('Email Address Not Found');
+        } else {
+          this.toastyService.success('Reset Password link has sent to your Email');
+        }
+      }
+    );
+  }
+
   onLoginSubmit() {
-    this.loading = true;
+    this.spinner.show();
     this.Isdisabled = true;
     this._loginService.ValidatePlayer(this.Player).subscribe(
       data => {
@@ -100,12 +152,12 @@ export class LoginComponent implements OnInit {
         if (this.webresponse == null) {
           // alert("Invalid Username and Password");
           this.toastyService.error('Invalid Username or Password');
-          this.loading = false;
+          this.spinner.hide();
           this.Isdisabled = false;
       } else {
           // alert("Logged in Successfully");
           this.toastyService.success('Logged in Successfully');
-          this.loading = false;
+          this.spinner.hide();
           this._router.navigateByUrl(this.returnUrl);
       }
       },
@@ -118,7 +170,7 @@ export class LoginComponent implements OnInit {
   }
 
   // onLoginSubmit() {
-  //   this.loading = true;
+  //   this.spinner.show();
   //   this.Isdisabled = true;
   //   this._AppService.ValidatePlayer(this.Player).subscribe(
   //     data => {
@@ -127,13 +179,13 @@ export class LoginComponent implements OnInit {
   //       if (this.webresponse == null) {
   //         // alert("Invalid Username and Password");
   //         this.toastyService.error('Invalid Username or Password');
-  //         this.loading = false;
+  //         this.spinner.hide();
   //         this.Isdisabled = false;
   //         this._router.navigate(['Login']);
   //       } else {
   //         // alert("Logged in Successfully");
   //         this.toastyService.success('Logged in Successfully');
-  //         this.loading = false;
+  //         this.spinner.hide();
   //         this._router.navigate(['/']);
   //       }
   //     },
@@ -150,10 +202,10 @@ export class LoginComponent implements OnInit {
   //   // this._router.navigateByUrl('/home');
   // }
   ngOnInit(): void {
+    this.emailExists = false;
     if (localStorage.getItem('HousieGame')) {
       this._router.navigate(['/match-list']);
     }
-    this.signUp = false;
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/match-list';
    }
 

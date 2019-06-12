@@ -1,6 +1,7 @@
 <div class="limiter">
   <div class="heading">
-    <nav class="row sticky-top">
+    <nav class="row">
+        <!-- <nav class="row sticky-top"> -->
       <div class="col-sm-3 col-3" [routerLink]="['/tutorial']">
         <img src="assets/icons/question-mark-32.png" width="30px" height="30px">
         &nbsp;Learn</div>
@@ -18,8 +19,8 @@
   <div class="container-login100">
     <div class="wrap-login100">
       <form #registrationForm="ngForm"
-        (ngSubmit)="registerPlayer(registrationForm)" class="login100-form
-        validate-form" *ngIf="signUp">
+        (ngSubmit)="registerPlayer(registrationForm)" style="width: 100%" class="login100-form
+        validate-form" *ngIf="isSignUp">
         <span class="login100-form-title">
           Register
         </span>
@@ -27,30 +28,66 @@
         <div class="wrap-input100 validate-input" data-validate="Password is
           required">
           <input class="input100" [(ngModel)]="Player.name" type="text" required
-            name="username" placeholder="Full Name">
-          <span class="focus-input100"></span>
+            name="username" placeholder="Full Name" minlength="4" #username="ngModel">
+            <div class="errors" *ngIf="username.errors && username.touched">
+              <span *ngIf="username.errors.required">
+                  Name is <strong>required</strong>
+              </span>
+              <span *ngIf="emailId.errors.minlength">
+                  Enter Full Name
+              </span>
+          </div>
         </div>
 
         <div class="wrap-input100 validate-input" data-validate="Valid email is
           required: ex@abc.xyz">
           <input class="input100" [(ngModel)]="Player.email" type="text"
-            required name="email" placeholder="Email Address">
-          <span class="focus-input100"></span>
+            required name="registerEmail" (blur)="checkEmail()" placeholder="Email Address" #registerEmail="ngModel" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)">
+            <div class="errors" *ngIf="registerEmail.errors && registerEmail.touched">
+              <span *ngIf="registerEmail.errors.required">
+                  Email is <strong>required</strong>
+              </span>
+              <span *ngIf="registerEmail.errors.pattern">
+                Please Enter Valid Email Address
+            </span>
+            <span *ngIf="emailExists">
+                Email Id Already Exist
+            </span>
+          </div>
+          <div class="errors" *ngIf="emailExists">
+            <span *ngIf="emailExists">
+                Email Id Already Exist
+            </span>
+          </div>
         </div>
 
         <div class="wrap-input100 validate-input" data-validate="Password is
           required">
           <input class="input100" [(ngModel)]="Player.mobileNumber" type="text"
-            required name="mobile" placeholder="Mobile Number">
-          <span class="focus-input100"></span>
+            required name="mobile" placeholder="Mobile Number" #mobile="ngModel" maxlength="10" pattern="^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$">
+            <div class="errors" *ngIf="mobile.errors && mobile.touched">
+              <span *ngIf="mobile.errors.required">
+                  Phone No. is <strong>required</strong>
+              </span>
+              <span *ngIf="mobile.errors.pattern">
+                Please Enter Valid Mobile Number
+            </span>
+          </div>
         </div>
 
 
         <div class="wrap-input100 validate-input" data-validate="Password is
           required">
           <input class="input100" [(ngModel)]="Player.passwordHash" required
-            type="password" name="pass" placeholder="Password">
-          <span class="focus-input100"></span>
+            type="password" name="pass" #pass="ngModel" minlength="6" placeholder="Password">
+            <div class="errors" *ngIf="pass.errors && pass.touched">
+              <span *ngIf="pass.errors.required">
+                  Password is <strong>required</strong>
+              </span>
+              <span *ngIf="pass.errors.minlength">
+                Minimum length should be 6
+            </span>
+          </div>
         </div>
         <div id="privacy" class="wrap-input100 validate-input"
           data-validate="Agree to privacy policy">
@@ -67,7 +104,7 @@
         <div class="container-login100-form-btn">
           <!-- registrationForm.form.invalid && -->
           <button class="login100-form-btn" (click)="clicked()"
-            [disabled]="!registrationForm.form.valid" type="submit">
+            [disabled]="!registrationForm.form.valid || emailExists" type="submit">
             Submit
           </button>
         </div>
@@ -81,7 +118,7 @@
       </form>
 
       <form #loginForm="ngForm" (ngSubmit)="onLoginSubmit()"
-        class="login100-form validate-form" style="width: 100%" *ngIf="!signUp">
+        class="login100-form validate-form" style="width: 100%" *ngIf="isLogin">
         <span class="login100-form-title" style="padding: 0px">
           Member Login
         </span>
@@ -96,21 +133,30 @@
               is
               required: ex@abc.xyz">
               <input class="input100" required [(ngModel)]="Player.email"
-                type="text" name="email" placeholder="Email Address">
-              <span class="focus-input100"></span>
-              <!-- <span class="symbol-input100">
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-              </span> -->
+                type="text" name="email" placeholder="Email Address" #emailId="ngModel" pattern="[A-Za-z0-9!#$%&'*+/=?^_`{|}~.-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)">
+                <div class="errors" *ngIf="emailId.errors && emailId.touched">
+                  <span *ngIf="emailId.errors.required">
+                      Email is <strong>required</strong>
+                  </span>
+                  <span *ngIf="emailId.errors.pattern">
+                    Please Enter Valid Email Address
+                </span>
+              </div>
             </div>
 
             <div class="wrap-input100 validate-input" data-validate="Password is
               required">
               <input class="input100" required [(ngModel)]="Player.passwordHash"
-                type="password" name="pass" placeholder="Password">
+                type="password" name="pass" #pass="ngModel" minlength="6" placeholder="Password">
               <span class="focus-input100"></span>
-              <!-- <span class="symbol-input100">
-                <i class="fa fa-lock" aria-hidden="true"></i>
-              </span> -->
+              <div class="errors" *ngIf="pass.errors && pass.touched">
+                <span *ngIf="pass.errors.required">
+                    Password is <strong>required</strong>
+                </span>
+                <span *ngIf="pass.errors.minlength">
+                  Minimum length should be 6
+              </span>
+            </div>
             </div>
             <!-- <label style="color: red; margin-left: 20%" *ngIf="userExist">Email already exist</label> -->
             <div class="container-login100-form-btn">
@@ -127,7 +173,57 @@
             Create your Account
           </a>
         </div>
+        <div class="text-center p-t-12" style="cursor: pointer; color: blue">
+          <a class="txt2" (click)="setReset()">
+            Forget Password / Change Password
+          </a>
+        </div>
       </form>
+
+
+      <form #loginForm="ngForm" (ngSubmit)="onResetSubmit()"
+        class="login100-form validate-form" style="width: 100%" *ngIf="isReset">
+        <span class="login100-form-title" style="padding: 0px">
+          Forget Password / Change Password
+        </span>
+
+        <div class="row">
+          <!-- <div class="col-4">
+            <img src="../../../assets/Final.png" style="height: 100px; width: 100px;">
+          </div> -->
+          <div class="col-12">
+            <img src="../../../assets/Final.png" style="height: 50px; width: 50px; margin-left: 42%; margin-top: 20px; margin-bottom: 20px">
+            <div class="wrap-input100 validate-input" data-validate="Valid email
+              is
+              required: ex@abc.xyz">
+              <input class="input100" required [(ngModel)]="Player.email"
+                type="text" name="email" placeholder="Email Address" #emailId="ngModel" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)">
+                <div class="errors" *ngIf="emailId.errors && emailId.touched">
+                  <span *ngIf="emailId.errors.required">
+                      Email is <strong>required</strong>
+                  </span>
+                  <span *ngIf="emailId.errors.pattern">
+                    Please Enter Valid Email Address
+                </span>
+              </div>
+            </div>
+
+            <!-- <label style="color: red; margin-left: 20%" *ngIf="userExist">Email already exist</label> -->
+            <div class="container-login100-form-btn">
+              <button class="login100-form-btn" type="submit"
+                [disabled]="loginForm.form.invalid">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="text-center p-t-12" style="cursor: pointer; color: blue">
+          <a class="txt2" (click)="setLogin()">
+            Try Login
+          </a>
+        </div>
+      </form>
+
     </div>
     <!-- <popover-content #myPopover
       title="Popover title"
@@ -191,4 +287,6 @@
     </popover-content> -->
   </div>
   <ng2-toasty></ng2-toasty>
+  <ngx-spinner></ngx-spinner>
 </div>
+

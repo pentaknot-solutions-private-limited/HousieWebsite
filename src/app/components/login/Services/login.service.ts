@@ -29,6 +29,60 @@ export class LoginService {
         });
 }
 
+public ChangePassword(Id: string, password: string) {
+  const headers = new Headers({ 'Content-Type': 'application/json' });
+  const options = new RequestOptions({ headers: headers });
+  return this._http.get(this.apiUrl + 'ForgetPassword/' + Id + '/' + password, options)
+      .map((res: Response) => res.json())
+      .catch(response => {
+          if (response.status === 401) {
+              this._Route.navigate(['Login']);
+          }
+          return response;
+      });
+}
+
+public CheckEmail(Mail: string) {
+  const headers = new Headers({ 'Content-Type': 'application/json' });
+  const options = new RequestOptions({ headers: headers });
+  return this._http.get(this.apiUrl + 'Player/email/' + Mail, options)
+      .map((res: Response) => res.json())
+      .catch(response => {
+          if (response.status === 401) {
+              this._Route.navigate(['Login']);
+          }
+          return response;
+      });
+}
+public CheckLink(Token: string) {
+  const headers = new Headers({ 'Content-Type': 'application/json' });
+  const options = new RequestOptions({ headers: headers });
+  return this._http.get(this.apiUrl + 'ForgetPassword/' + Token, options)
+      .map((res: Response) => res.json())
+      .catch(response => {
+          if (response.status === 401) {
+              this._Route.navigate(['Login']);
+          }
+          return response;
+      });
+}
+
+
+
+public SendForgetPaswordLink(PlayerModel: Player) {
+  const headers = new Headers({ 'Content-Type': 'application/json' });
+  const options = new RequestOptions({ headers: headers });
+  return this._http.post(this.apiUrl + 'ForgetPassword', PlayerModel, options)
+      .map((res: Response) => res.json())
+      .catch(response => {
+          if (response.status === 401) {
+              this._Route.navigate(['Login']);
+          }
+          return response;
+      });
+}
+
+
   public ValidatePlayer(PlayerModel: Player) {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });

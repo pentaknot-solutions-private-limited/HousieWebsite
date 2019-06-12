@@ -31,6 +31,7 @@ import { PolicyComponent } from './components/policy/policy.component';
 import { AboutComponent } from './components/about/about.component';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
 import { AddressComponent } from './components/address/address.component';
+import { ForgetComponent } from './components/forget/forget.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { AddressComponent } from './components/address/address.component';
     AboutComponent,
     TutorialComponent,
     AddressComponent,
+    ForgetComponent,
 
   ],
   imports: [

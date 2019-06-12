@@ -12,6 +12,7 @@ import { PolicyComponent } from './components/policy/policy.component';
 import { AboutComponent } from './components/about/about.component';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
 import { AddressComponent } from './components/address/address.component';
+import { ForgetComponent } from './components/forget/forget.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'match-list', component: MatchlistComponent},
   {path: 'claim/:ID/:Token', component: ClaimComponent,  canActivate: [AuthGuard]},
   {path: 'address/:ID', component: AddressComponent,  canActivate: [AuthGuard]},
+  {path: 'forget/:Token', component: ForgetComponent},
   {path: 'result', component: ResultComponent,  canActivate: [AuthGuard]},
   {path: 'youtube', component: YoutubeComponent},
   {path: 'match-details/:ID', component: MatchdetailsComponent,  canActivate: [AuthGuard]},

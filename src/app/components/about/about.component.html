@@ -1,6 +1,7 @@
 <div class="limiter">
   <div class="heading">
-    <nav class="row sticky-top">
+      <nav class="row">
+          <!-- <nav class="row sticky-top"> -->
       <div class="col-sm-3 col-3" [routerLink]="['/tutorial']">
         <img src="assets/icons/question-mark-32.png" width="30px" height="30px">
         &nbsp;Learn</div>
@@ -42,8 +43,8 @@
       </div>
       <div class="col-6 col-md-12 mx-auto">
         <form #registrationForm="ngForm"
-          (ngSubmit)="Mail()" class="login100-form
-          validate-form">
+           class="login100-form
+          validate-form" style="width: 100%">
           <div class="head">
             <h3 id="contact">Contact Us
             </h3>
@@ -52,37 +53,64 @@
 
           <div class="wrap-input100 validate-input" data-validate="First Name is
             required">
-            <input class="input100" [(ngModel)]="Contact.firstName" type="text"
+            <input class="input100" #first="ngModel" [(ngModel)]="Contact.firstName" type="text"
               required
               name="fn" placeholder="First Name">
-            <span class="focus-input100"></span>
+              <div class="errors" *ngIf="first.errors && first.touched">
+                  <span *ngIf="first.errors.required">
+                      <strong>Required Field</strong>
+                  </span>
+              </div>
           </div>
+          
           <div class="wrap-input100 validate-input" data-validate="Last Name is
             required">
             <input class="input100" [(ngModel)]="Contact.lastName" type="text"
               required
-              name="ln" placeholder="Last Name">
-            <span class="focus-input100"></span>
+              name="ln" #last="ngModel" placeholder="Last Name">
+              <div class="errors" *ngIf="last.errors && last.touched">
+                  <span *ngIf="last.errors.required">
+                      <strong>Required Field</strong>
+                  </span>
+              </div>
           </div>
 
           <div class="wrap-input100 validate-input" data-validate="Valid email
-            is
-            required: ex@abc.xyz">
-            <input class="input100" [(ngModel)]="Contact.email" type="text"
-              required name="email" placeholder="Email Address">
-            <span class="focus-input100"></span>
-          </div>
+              is
+              required: ex@abc.xyz">
+              <input class="input100" required [(ngModel)]="Contact.email"
+                type="text" name="email" placeholder="Email Address" #emailId="ngModel" pattern="[A-Za-z0-9!#$%&'*+/=?^_`{|}~.-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)">
+                <div class="errors" *ngIf="emailId.errors && emailId.touched">
+                  <span *ngIf="emailId.errors.required">
+                      Email is <strong>required</strong>
+                  </span>
+                  <span *ngIf="emailId.errors.pattern">
+                    Please Enter Valid Email Address
+                </span>
+              </div>
+            </div>
           <div class="wrap-input100 validate-input" data-validate="Phone is
             required">
             <input class="input100" [(ngModel)]="Contact.phone" required
-              type="number" min="1" name="mobile" placeholder="Phone">
-            <span class="focus-input100"></span>
+              type="number" #mobile="ngModel" maxlength="10" pattern="^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$" name="mobile" placeholder="Phone">
+              <div class="errors" *ngIf="mobile.errors && mobile.touched">
+                  <span *ngIf="mobile.errors.required">
+                      Phone No. is <strong>required</strong>
+                  </span>
+                  <span *ngIf="mobile.errors.pattern">
+                    Please Enter Valid Mobile Number
+                </span>
+              </div>
           </div>
 
           <div class="wrap-input100 validate-input">
             <textarea class="input100" id="texta" [(ngModel)]="Contact.message"
-              required name="mess" placeholder="Message here!"></textarea>
-           <span class="focus-input100"></span>
+              required name="mess" #message="ngModel" placeholder="Message here!"></textarea>
+              <div class="errors" *ngIf="message.errors && message.touched">
+                  <span *ngIf="message.errors.required">
+                      <strong>Required Field</strong>
+                  </span>
+              </div>
           </div>
 
 
@@ -91,9 +119,8 @@
           <!-- <label style="color: red; margin-left: 20%" *ngIf="userExist">Email already exist</label> -->
           <div class="container-login100-form-btn">
             <!-- registrationForm.form.invalid && -->
-            <button class="login100-form-btn" 
-              [disabled]="!registrationForm.form.valid" type="button"
-              [routerLink]="['/match-list']">
+            <button class="login100-form-btn" (click)="Mail()"
+              [disabled]="!registrationForm.form.valid" type="button">
               Submit
             </button>
           </div>
@@ -102,3 +129,5 @@
     </div>
   </div>
 </div>
+<ng2-toasty></ng2-toasty>
+<ngx-spinner></ngx-spinner>

@@ -20,7 +20,7 @@ export class AboutService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
 
-    return this._http.post(this.apiUrl + 'Contact', ContactModel, options)
+    return this._http.post(this.apiUrl + 'ContactUsMailer', ContactModel, options)
       .map((res: Response) => {
         const webresponse = res.json() && res.json();
         if (webresponse !== null) {

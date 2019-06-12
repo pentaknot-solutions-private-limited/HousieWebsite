@@ -1,0 +1,54 @@
+<div class="limiter">
+  <div class="container-login100">
+    <div class="preloader">
+      <div class="wrap-login100 row" *ngIf="isError">
+        <div class="col-md-12 mb-5 text-center">
+          <h3>{{ errMsg }}</h3>
+        </div>
+        <!-- *ngIf="isWon" -->
+      </div>
+      <div class="" *ngIf="!isError">
+        <form #loginForm="ngForm" (ngSubmit)="resetPassword()">
+        <span *ngIf="!changed" class="login100-form-title" style="padding: 0px; margin-bottom: 10%">
+          Enter New Password
+        </span>
+        <span *ngIf="changed" class="login100-form-title" style="padding: 0px; margin-bottom: 10%">
+          <a [routerLink]="['/login']">Go to Login Page</a>
+        </span>
+
+        <div class="row" *ngIf="!changed">
+          <!-- <div class="col-4">
+            <img src="../../../assets/Final.png" style="height: 100px; width: 100px;">
+          </div> -->
+          <div class="col-12">
+            <div class="wrap-input100 validate-input" data-validate="Valid email
+              is
+              required: ex@abc.xyz">
+              <input class="input100" required [(ngModel)]="password"
+                type="password" name="pass" placeholder="New Password" minlength="6" #pass="ngModel">
+                <div class="errors" *ngIf="pass.errors && pass.touched">
+                  <span *ngIf="pass.errors.required">
+                      Password is <strong>required</strong>
+                  </span>
+                  <span *ngIf="pass.errors.minlength">
+                    Minimum length should be 6
+                </span>
+              </div>
+            </div>
+
+            <!-- <label style="color: red; margin-left: 20%" *ngIf="userExist">Email already exist</label> -->
+            <div class="container-login100-form-btn">
+              <button class="login100-form-btn" type="submit"
+                [disabled]="loginForm.form.invalid">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+      </div>
+      <ng2-toasty></ng2-toasty>
+      <ngx-spinner></ngx-spinner>
+    </div>
+  </div>
+</div>

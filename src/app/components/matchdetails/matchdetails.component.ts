@@ -4,7 +4,7 @@ import { MatchDetailsService } from './service/matchdetails.service';
 import { MatchDetail, MatchPlayerRel } from './model/matchdetails.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AppConfig } from '../_config/app.config';
-import { ToastyConfig, ToastyService } from 'ng2-toasty';
+import { ToastyConfig, ToastyService, ToastOptions, ToastData } from 'ng2-toasty';
 
 @Component({
   selector: 'app-matchdetails',
@@ -74,6 +74,24 @@ export class MatchdetailsComponent implements OnInit {
     }
   }
 
+  addToast(msg: string, router: Router) {
+    // Just add default Toast with title only
+    // Or create the instance of ToastOptions
+    // tslint:disable-next-line:prefer-const
+    let toastOptions: ToastOptions = {
+        title: 'Success',
+        msg: msg,
+        showClose: true,
+        timeout: 3000,
+        theme: 'default',
+        onRemove: function(toast: ToastData) {
+            router.navigate(['/match-list']);
+            this.spinner.hide();
+        }
+    };
+    this.toastyService.success(toastOptions);
+  }
+
   matchPLayerRel(matchId) {
     this.spinner.show();
     // alert(matchId + '------' + this.playerId);
@@ -84,11 +102,11 @@ export class MatchdetailsComponent implements OnInit {
         if (data.message === 'enrolled') {
           // alert('Already Enrolled');
           this.toastyService.warning('You have already Enrolled for this Match');
+          this.spinner.hide();
         } else {
           // alert('Successfully Enrolled');
-          this.toastyService.success('Successfully Enrolled for this Match');
+          this.addToast('Successfully Enrolled for this Match', this.route);
         }
-        this.spinner.hide();
         // alert(data);
       }, err => {
         if (err) {
