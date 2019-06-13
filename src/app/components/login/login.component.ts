@@ -3,7 +3,7 @@ import { Router, Route, ActivatedRoute } from '@angular/router';
 // import { AppService } from './Services/login.service';
 import { LoginModel, Player } from './Model/login.model';
 import { LoginService } from './Services/login.service';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgModel, NgForm } from '@angular/forms';
 
@@ -50,20 +50,32 @@ export class LoginComponent implements OnInit {
     this.toastyConfig.position = 'top-center';
   }
 
+  checkTOS() {
+    // console.log(this.policyChecked);
+  }
+
   checkEmail() {
     if (this.registerEmailId.valid) {
-    this.spinner.show();
-    this._loginService.CheckEmail(this.Player.email).subscribe(
-      data => {
-        if (data) {
-          this.emailExists = true;
-        } else {
-          this.emailExists = false;
+      this.spinner.show();
+      this._loginService.CheckEmail(this.Player.email).subscribe(
+        data => {
+          if (data) {
+            this.emailExists = true;
+          } else {
+            this.emailExists = false;
+          }
+          this.spinner.hide();
         }
-        this.spinner.hide();
-      }
-    );
+      );
     }
+  }
+
+  resetForm() {
+    this.Player.name = undefined;
+    this.Player.email = undefined;
+    this.Player.passwordHash = undefined;
+    this.Player.mobileNumber = undefined;
+    this.policyChecked = undefined;
   }
 
   setSignUp() {
@@ -85,7 +97,7 @@ export class LoginComponent implements OnInit {
   }
 
   clicked() {
-    if (!this.policyChecked)  {
+    if (!this.policyChecked) {
       this.toastyService.error('Registration Failed');
     }
   }
@@ -112,17 +124,18 @@ export class LoginComponent implements OnInit {
           this.toastyService.error('Registration Failed');
           this.spinner.hide();
           this.Isdisabled = false;
-      } else {
+        } else {
           this.toastyService.success('Registered Successfully');
           this.setLogin();
           this.spinner.hide();
           this.Player.email = '';
-      }
+        }
+        this.resetForm();
       },
       err => {
         if (err) {
-            this.Isdisabled = false;
-            this.toastyService.error('An Error has occured please try again after some time !' + err);
+          this.Isdisabled = false;
+          this.toastyService.error('An Error has occured please try again after some time !' + err);
         }
       }
     );
@@ -154,19 +167,20 @@ export class LoginComponent implements OnInit {
           this.toastyService.error('Invalid Username or Password');
           this.spinner.hide();
           this.Isdisabled = false;
-      } else {
+        } else {
           // alert("Logged in Successfully");
           this.toastyService.success('Logged in Successfully');
           this.spinner.hide();
           this._router.navigateByUrl(this.returnUrl);
-      }
+        }
+        this.resetForm();
       },
       err => {
         if (err) {
-            this.Isdisabled = false;
-            this.toastyService.error('An Error has occured please try again after some time !' + err);
+          this.Isdisabled = false;
+          this.toastyService.error('An Error has occured please try again after some time !' + err);
         }
-    });
+      });
   }
 
   // onLoginSubmit() {
@@ -207,7 +221,7 @@ export class LoginComponent implements OnInit {
       this._router.navigate(['/match-list']);
     }
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/match-list';
-   }
+  }
 
 }
 
